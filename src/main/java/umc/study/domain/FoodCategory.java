@@ -22,6 +22,10 @@ public class FoodCategory extends BaseEntity {
     @Column(nullable = false, length = 15)
     private String name;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
     @OneToMany(mappedBy = "foodCategory", cascade = CascadeType.ALL)
     private List<MemberPrefer> memberPreferList = new ArrayList<>();
 }
