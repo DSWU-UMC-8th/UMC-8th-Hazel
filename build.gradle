@@ -11,6 +11,7 @@ sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
+	maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -39,6 +40,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	implementation 'org.springframework.boot:spring-boot-starter-validation'	// 에러 핸들러 만들기 위해 적용
+
+	implementation 'org.springframework.boot:spring-boot-starter-logging'		// 디스코드 에러 로그 전송을 위해 적용
+	implementation 'com.github.napstr:logback-discord-appender:1.0.0'
 }
 
 sourceSets {
