@@ -1,5 +1,6 @@
 package umc.study.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import umc.study.domain.common.BaseEntity;
@@ -27,6 +28,7 @@ public class Mission extends BaseEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String missionSpec;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
