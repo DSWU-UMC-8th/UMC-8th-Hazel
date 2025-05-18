@@ -1,5 +1,6 @@
 package umc.study.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import umc.study.domain.common.*;
@@ -26,6 +27,7 @@ public class Store extends BaseEntity {
 
     private Float score;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id")
     private Region region;
