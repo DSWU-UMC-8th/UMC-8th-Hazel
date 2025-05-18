@@ -34,8 +34,8 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.22'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
-	implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
-	implementation 'org.springdoc:springdoc-openapi-data-rest:1.6.9'
+//	implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
+//	implementation 'org.springdoc:springdoc-openapi-data-rest:1.6.9'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
@@ -43,6 +43,10 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-logging'		// 디스코드 에러 로그 전송을 위해 적용
 	implementation 'com.github.napstr:logback-discord-appender:1.0.0'
+
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'	// swagger
+
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 sourceSets {
