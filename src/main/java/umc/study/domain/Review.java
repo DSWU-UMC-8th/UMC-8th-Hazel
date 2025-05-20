@@ -1,5 +1,6 @@
 package umc.study.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import umc.study.domain.common.BaseEntity;
@@ -27,10 +28,12 @@ public class Review extends BaseEntity {
     @Column(nullable = false)
     private Float score;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;

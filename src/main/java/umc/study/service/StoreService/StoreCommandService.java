@@ -5,4 +5,6 @@ import umc.study.web.dto.StoreRequestDTO;
 
 public abstract class StoreCommandService {
     public abstract Store createStore(StoreRequestDTO.createStoreDTO request);
+
+    public abstract boolean existsById(Long value);
 }

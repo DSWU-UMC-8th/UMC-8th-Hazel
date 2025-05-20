@@ -32,4 +32,9 @@ public class StoreCommandServiceImpl extends StoreCommandService {
         // 가게 추가
         return storeRepository.save(store);
     }
+
+    @Override
+    public boolean existsById(Long value) {
+        return storeRepository.existsById(value);
+    }
 }
