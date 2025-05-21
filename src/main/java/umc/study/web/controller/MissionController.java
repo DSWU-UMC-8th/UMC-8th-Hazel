@@ -28,4 +28,14 @@ public class MissionController {
         Mission response = MissionCommandService.createMission(request);
         return ApiResponse.onSuccess(response);
     }
+
+    @PostMapping("/api/mission/challenge")
+    @Operation(summary = "미션 도전",description = "특정 유저가 미션을 도전합니다.")
+    public ApiResponse<String> challengeMission(
+            @RequestBody @Valid MissionRequestDTO.challengeMissionDTO request
+    ){
+        MissionCommandService.challengeMission(request);
+        return ApiResponse.onSuccess("미션 도전에 성공했습니다.");
+    }
+
 }
