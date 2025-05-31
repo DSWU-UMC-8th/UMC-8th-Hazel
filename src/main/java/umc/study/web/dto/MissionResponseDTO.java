@@ -13,7 +13,7 @@ public class MissionResponseDTO {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class getStoreMissionsDTO{
+    public static class getMissionsDTO{
         List<getMissionDTO> missions;
         Integer listSize;       // 반환된 데이터 개수
         Integer totalPage;      // 생성된 페이지 총 개수

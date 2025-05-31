@@ -11,11 +11,15 @@ import umc.study.domain.Member;
 import umc.study.domain.Mission;
 import umc.study.domain.Review;
 import umc.study.domain.Store;
+import umc.study.domain.mapping.MemberMission;
+import umc.study.repository.MemberMissionRepository;
 import umc.study.repository.MemberRepository.MemberRepository;
 import umc.study.repository.MissionRepository.MissionRepository;
 import umc.study.repository.ReviewRepository.ReviewRepository;
 import umc.study.repository.StoreRepository.StoreRepository;
 import umc.study.service.ReviewService.ReviewQueryService;
+
+import static umc.study.domain.enums.MissionStatus.CHALLENGING;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +28,8 @@ public class MissionQueryServiceImpl implements MissionQueryService {
 
     private final MissionRepository missionRepository;
     private final StoreRepository storeRepository;
+    private final MemberRepository memberRepository;
+    private final MemberMissionRepository memberMissionRepository;
 
     @Override
     public Page<Mission> getStoreMissions(Long storeId, Integer page) {
@@ -34,5 +40,15 @@ public class MissionQueryServiceImpl implements MissionQueryService {
         Page<Mission> storeMissions = missionRepository.findAllByStore(store, PageRequest.of(page, 10));
 
         return storeMissions;
+    }
+
+    @Override
+    public Page<MemberMission> getMemberChallengingMissions(Long memberId, Integer page) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
+
+        Page<MemberMission> memberMissions = memberMissionRepository.findAllByMemberAndStatus(member, CHALLENGING, PageRequest.of(page, 10));
+
+        return memberMissions;
     }
 }

@@ -59,7 +59,7 @@ public class StoreController {
 
     @GetMapping("/api/store/{storeId}/missions")
     @Operation(summary = "특정 가게의 미션 목록 조회 API",description = "특정 가게의 미션 목록을 조회하는 API이며, 페이징을 포함합니다. query String 으로 page 번호를 주세요")
-    public ApiResponse<MissionResponseDTO.getStoreMissionsDTO> getStoreMissions(
+    public ApiResponse<MissionResponseDTO.getMissionsDTO> getStoreMissions(
             @ExistStore @RequestParam(name = "storeId") Long storeId,
             @PageCheck @RequestParam(name = "page") Integer page
     ){

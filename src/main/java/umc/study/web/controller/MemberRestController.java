@@ -8,13 +8,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import umc.study.apiPayload.ApiResponse;
 import umc.study.converter.MemberConverter;
+import umc.study.converter.MissionConverter;
 import umc.study.converter.ReviewConverter;
 import umc.study.domain.Member;
 import umc.study.service.MemberService.MemberCommandService;
+import umc.study.service.MissionService.MissionQueryService;
 import umc.study.service.ReviewService.ReviewQueryService;
 import umc.study.validation.annotation.PageCheck;
 import umc.study.web.dto.MemberRequestDTO;
 import umc.study.web.dto.MemberResponseDTO;
+import umc.study.web.dto.MissionResponseDTO;
 import umc.study.web.dto.ReviewResponseDTO;
 
 @RestController
@@ -25,6 +28,7 @@ public class MemberRestController {
 
     private final MemberCommandService memberCommandService;
     private final ReviewQueryService reviewQueryService;
+    private final MissionQueryService missionQueryService;
 
     @PostMapping("/api/member/join")
     public ApiResponse<MemberResponseDTO.JoinResultDTO> join(@RequestBody @Valid MemberRequestDTO.JoinDto request){
@@ -39,5 +43,14 @@ public class MemberRestController {
             @PageCheck @RequestParam(name = "page") Integer page   // 커스텀 어노테이션 사용
     ){
         return ApiResponse.onSuccess(ReviewConverter.getMemberReviewsDTO(reviewQueryService.getMemberReviews(memberId, page)));
+    }
+
+    @GetMapping("/api/mypage/missions/challenging")
+    @Operation(summary = "특정 유저의 진행 중인 미션 목록 조회 API",description = "특정 유저의 진행 중인 미션 목록 조회 API이며, 페이징을 포함합니다. query String 으로 page 번호를 주세요")
+    public ApiResponse<MissionResponseDTO.getMissionsDTO> getMemberChallengingMissions(
+            @RequestParam(name = "memberId") Long memberId,
+            @PageCheck @RequestParam(name = "page") Integer page
+    ){
+        return ApiResponse.onSuccess(MissionConverter.getMemberMissionsDTO(missionQueryService.getMemberChallengingMissions(memberId, page)));
     }
 }
