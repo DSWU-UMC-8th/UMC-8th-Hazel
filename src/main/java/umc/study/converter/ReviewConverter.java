@@ -41,9 +41,9 @@ public class ReviewConverter {
 
         return ReviewResponseDTO.getMemberReviewsDTO.builder()
                 .reviews(reviewsDTOList)
-                .pageSize(reviews.getTotalPages())
-                .pageNumber(reviews.getNumber() + 1)
-                .reviewSize((int) reviews.getTotalElements())
+                .listSize(reviewsDTOList.size())
+                .totalPage(reviews.getTotalPages())
+                .totalElements(reviews.getTotalElements())
                 .isFirst(reviews.isFirst())
                 .isLast(reviews.isLast())
                 .build();
