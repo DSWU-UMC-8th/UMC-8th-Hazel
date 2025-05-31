@@ -12,6 +12,7 @@ import umc.study.converter.MissionConverter;
 import umc.study.domain.Member;
 import umc.study.domain.Mission;
 import umc.study.domain.Store;
+import umc.study.domain.enums.MissionStatus;
 import umc.study.domain.mapping.MemberMission;
 import umc.study.repository.MemberMissionRepository;
 import umc.study.repository.MemberRepository.MemberRepository;
@@ -63,5 +64,25 @@ public class MissionCommandServiceImpl extends MissionCommandService {
 
         // 저장
         memberMissionRepository.save(memberMission);
+    }
+
+    @Override
+    public void completeMission(Long memberId, Long missionId) {
+        // 유저 찾기
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
+
+        // 미션 찾기
+        Mission mission = missionRepository.findById(missionId)
+                .orElseThrow(() -> new MissionHandler(ErrorStatus.MISSION_NOT_FOUND));
+
+        MemberMission memberMission = memberMissionRepository.findByMemberAndMission(member, mission)
+                .orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_MISSION_NOT_FOUND));
+
+        if (memberMission.getStatus() != MissionStatus.CHALLENGING) {
+            throw new MemberHandler(ErrorStatus.MISSION_ALREADY_COMPLETED);
+        }
+
+        memberMission.changeStatus(MissionStatus.COMPLETE);
     }
 }

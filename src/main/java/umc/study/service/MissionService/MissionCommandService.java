@@ -10,4 +10,6 @@ public abstract class MissionCommandService {
     public abstract boolean isAlreadyChallenging(Long memberId, Long missionId);
 
     public abstract void challengeMission(MissionRequestDTO.challengeMissionDTO request);
+
+    public abstract void completeMission(Long memberId, Long missionId);
 }

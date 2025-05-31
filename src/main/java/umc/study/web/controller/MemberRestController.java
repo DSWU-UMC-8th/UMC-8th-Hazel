@@ -11,7 +11,9 @@ import umc.study.converter.MemberConverter;
 import umc.study.converter.MissionConverter;
 import umc.study.converter.ReviewConverter;
 import umc.study.domain.Member;
+import umc.study.domain.mapping.MemberMission;
 import umc.study.service.MemberService.MemberCommandService;
+import umc.study.service.MissionService.MissionCommandService;
 import umc.study.service.MissionService.MissionQueryService;
 import umc.study.service.ReviewService.ReviewQueryService;
 import umc.study.validation.annotation.PageCheck;
@@ -29,6 +31,7 @@ public class MemberRestController {
     private final MemberCommandService memberCommandService;
     private final ReviewQueryService reviewQueryService;
     private final MissionQueryService missionQueryService;
+    private final MissionCommandService missionCommandService;
 
     @PostMapping("/api/member/join")
     public ApiResponse<MemberResponseDTO.JoinResultDTO> join(@RequestBody @Valid MemberRequestDTO.JoinDto request){
@@ -52,5 +55,16 @@ public class MemberRestController {
             @PageCheck @RequestParam(name = "page") Integer page
     ){
         return ApiResponse.onSuccess(MissionConverter.getMemberMissionsDTO(missionQueryService.getMemberChallengingMissions(memberId, page)));
+    }
+
+    @PostMapping("/api/mypage/{missionId}/complete")
+    @Operation(summary = "특정 유저가 진행 중이던 미션 -> 완료로 바꾸기 API")
+    public ApiResponse<String> completeMission(
+            @RequestParam(name = "memberId") Long memberId,
+            @RequestParam(name = "missionId") Long missionId
+    ){
+        missionCommandService.completeMission(memberId, missionId);
+
+        return ApiResponse.onSuccess("미션 완료에 성공했습니다.");
     }
 }
