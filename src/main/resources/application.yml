@@ -21,3 +21,9 @@ spring:
     discord-error:
       webhook-url: ${DISCORD_WEBHOOK_URL}
       config: classpath:logback-spring.xml
+
+jwt:
+  token:
+    secretKey: umceightfightingjwttokenauthentication
+    expiration:
+      access: 14400000
