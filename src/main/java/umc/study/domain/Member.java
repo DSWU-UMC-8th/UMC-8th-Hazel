@@ -8,6 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import umc.study.domain.common.BaseEntity;
 import umc.study.domain.enums.Gender;
 import umc.study.domain.enums.MemberStatus;
+import umc.study.domain.enums.Role;
 import umc.study.domain.enums.SocialType;
 import umc.study.domain.mapping.MemberAgree;
 import umc.study.domain.mapping.MemberMission;
@@ -33,6 +34,15 @@ public class Member extends BaseEntity {
     @Column(nullable = false, length = 20)
     private String name;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @Column(nullable = false, length = 40)
     private String address;
 
@@ -52,11 +62,12 @@ public class Member extends BaseEntity {
 
     private LocalDate inactiveDate;
 
-//    @Column(nullable = false, length = 50)
-    private String email;
-
     @ColumnDefault("0")
     private Integer point;
+
+    public void encodePassword(String password) {
+        this.password = password;
+    }
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberAgree> memberAgreeList = new ArrayList<>();
