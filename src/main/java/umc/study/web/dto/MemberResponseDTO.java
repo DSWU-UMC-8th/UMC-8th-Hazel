@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import umc.study.domain.enums.Gender;
 
 import java.time.LocalDateTime;
 
@@ -25,5 +26,15 @@ public class MemberResponseDTO {
     public static class LoginResultDTO {
         Long memberId;
         String accessToken;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MemberInfoDTO{
+        String name;
+        String email;
+        Gender gender;
     }
 }
